@@ -1,0 +1,6 @@
+{
+  "name": "وكالة الصادق للسفريات والسياحة",
+  "description": "وكالة الصادق للسفريات والسياحة في المكلا تقدم خدمات التأشيرات وحجوزات الطيران والفنادق والنقل وبرامج العمرة والرحلات السياحية.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
