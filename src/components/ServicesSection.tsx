@@ -3,10 +3,29 @@ import { ArrowLeft, FileText, Plane, Building, Car, Moon, Compass } from 'lucide
 import { SERVICES_LIST } from '../data/agencyData';
 
 interface ServicesSectionProps {
-  onSelectService: (serviceTitle: string) => void;
+  onSelectService: (serviceTitle: string, customMessage?: string) => void;
 }
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectService }) => {
+  const getServiceMessage = (id: string, title: string) => {
+    switch (id) {
+      case 'visas':
+        return 'مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن استخراج وتسهيل إجراءات التأشيرات والمستندات المطلوبة.';
+      case 'flights':
+        return 'مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن حجز تذاكر طيران ومعرفة أفضل العروض ومسارات الرحلات.';
+      case 'hotels':
+        return 'مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن حجوزات الفنادق وخيارات الإقامة المتاحة.';
+      case 'transport':
+        return 'مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن خدمات النقل الدولي والمحلي وترتيبات التنقل.';
+      case 'umrah':
+        return 'مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن برامج وتفاصيل رحلات العمرة والزيارة (تأشيرات، سكن، ونقل).';
+      case 'tours':
+        return 'مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن البرامج والرحلات السياحية المنظمة والموسمية.';
+      default:
+        return `مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن خدمة ${title}.`;
+    }
+  };
+
   // Map icons for subtle visual association
   const getIcon = (id: string) => {
     switch (id) {
@@ -56,13 +75,23 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
           id="services-grid"
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {SERVICES_LIST.map((service) => (
-            <div
-              key={service.id}
-              id={`service-card-${service.id}`}
-              onClick={() => onSelectService(service.title)}
-              className="group relative bg-white border border-[#E7E7E7] hover:border-[#1261D6]/40 rounded-[20px] p-8 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(18,97,214,0.06)] cursor-pointer flex flex-col justify-between"
-            >
+          {SERVICES_LIST.map((service) => {
+            const customMsg = getServiceMessage(service.id, service.title);
+            return (
+              <div
+                key={service.id}
+                id={`service-card-${service.id}`}
+                role="button"
+                tabIndex={0}
+                onClick={() => onSelectService(service.title, customMsg)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onSelectService(service.title, customMsg);
+                  }
+                }}
+                className="group relative bg-white border border-[#E7E7E7] hover:border-[#1261D6]/40 focus:outline-none focus:ring-2 focus:ring-[#1261D6]/50 rounded-[20px] p-8 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(18,97,214,0.06)] cursor-pointer flex flex-col justify-between"
+              >
               <div>
                 {/* Top Row: Number & Subtle Icon */}
                 <div className="flex items-center justify-between mb-8">
@@ -108,7 +137,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                 </div>
               </div>
             </div>
-          ))}
+          );
+        })}
         </div>
       </div>
     </section>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpLeft, Plane } from 'lucide-react';
-import { AGENCY_CONFIG } from '../data/agencyData';
+import { AGENCY_CONFIG, getWhatsAppUrl } from '../data/agencyData';
 
 interface NavbarProps {
-  onOpenBooking: (serviceType?: string) => void;
+  onOpenBooking: (message?: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
@@ -39,6 +39,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
 
   const navLinks = [
     { label: 'الرئيسية', href: '#hero', id: 'hero' },
@@ -124,7 +142,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             </a>
 
             <button
-              onClick={() => onOpenBooking()}
+              onClick={() => onOpenBooking('مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار وحجز وترتيب تفاصيل السفر.')}
               id="nav-book-now-btn"
               type="button"
               className="h-10 md:h-11 px-6 text-[13px] md:text-[14px] font-medium text-white bg-[#F28A2E] hover:bg-[#e07b22] active:scale-[0.98] rounded-full shadow-[0_2px_12px_rgba(242,138,46,0.35)] transition-all duration-200 flex items-center justify-center whitespace-nowrap cursor-pointer"
@@ -136,7 +154,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
           {/* Mobile Menu Toggle */}
           <div className="flex sm:hidden items-center gap-2">
             <button
-              onClick={() => onOpenBooking()}
+              onClick={() => onOpenBooking('مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار وحجز وترتيب تفاصيل السفر.')}
               type="button"
               id="mobile-nav-book-btn"
               className="h-9 px-4 text-xs font-medium text-white bg-[#F28A2E] rounded-full flex items-center justify-center"
@@ -180,7 +198,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
-                onOpenBooking();
+                onOpenBooking('مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار وحجز وترتيب تفاصيل السفر.');
               }}
               type="button"
               className="w-full h-12 bg-[#F28A2E] text-white font-medium rounded-full text-center flex items-center justify-center text-sm shadow-md"
@@ -188,7 +206,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
               احجز الآن
             </button>
             <a
-              href={AGENCY_CONFIG.whatsappUrl}
+              href={getWhatsAppUrl('مرحبًا وكالة الصادق للسفريات والسياحة، أود التواصل معكم للاستفسار عن خدمات السفر وحجوزات الرحلات.')}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full h-12 bg-white/10 text-white font-medium rounded-full text-center flex items-center justify-center text-sm"

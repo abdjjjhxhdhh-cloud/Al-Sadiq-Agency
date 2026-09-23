@@ -1,6 +1,6 @@
 import React from 'react';
 import { Phone, MessageCircle, Instagram, Facebook, Twitter, MapPin, Clock, ShieldCheck, Headphones, ArrowLeft } from 'lucide-react';
-import { AGENCY_CONFIG } from '../data/agencyData';
+import { AGENCY_CONFIG, getWhatsAppUrl } from '../data/agencyData';
 
 interface ContactSectionProps {
   initialService?: string;
@@ -12,16 +12,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   initialDestination,
 }) => {
   // Generate customized direct WhatsApp link
-  let defaultMsg = 'مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار وحجز ترتيبات السفر.';
+  let defaultMsg = 'مرحبًا وكالة الصادق للسفريات والسياحة، أود التحدث مع مستشار السفر للاستفسار وطلب تسعيرة لخدمات السفر والحجوزات.';
   if (initialService && initialDestination) {
     defaultMsg = `مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن ${initialService} إلى ${initialDestination}.`;
   } else if (initialService) {
     defaultMsg = `مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن خدمة ${initialService}.`;
   } else if (initialDestination) {
-    defaultMsg = `مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن السفر إلى ${initialDestination}.`;
+    defaultMsg = `مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار والحصول على تفاصيل وإجراءات تأشيرة السفر إلى ${initialDestination}.`;
   }
 
-  const customWhatsAppUrl = `https://wa.me/${AGENCY_CONFIG.phoneClean}?text=${encodeURIComponent(defaultMsg)}`;
+  const customWhatsAppUrl = getWhatsAppUrl(defaultMsg);
 
   return (
     <section

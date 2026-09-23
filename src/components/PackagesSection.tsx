@@ -3,10 +3,22 @@ import { ArrowLeft, Check } from 'lucide-react';
 import { PACKAGES_LIST } from '../data/agencyData';
 
 interface PackagesSectionProps {
-  onSelectPackage: (packageTitle: string) => void;
+  onSelectPackage: (packageTitle: string, customMessage?: string) => void;
 }
 
 export const PackagesSection: React.FC<PackagesSectionProps> = ({ onSelectPackage }) => {
+  const getPackageMessage = (pkgId: string, title: string) => {
+    switch (pkgId) {
+      case 'family':
+        return 'مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن تفاصيل وحجوزات باقات الرحلات العائلية المنظمة وتكلفتها.';
+      case 'leisure':
+        return 'مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن تفاصيل رحلات الطبيعة والاستجمام المتاحة حاليًا.';
+      case 'business':
+        return 'مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن باقات رجال الأعمال والرحلات السريعة والقصيرة.';
+      default:
+        return `مرحبًا وكالة الصادق للسفريات والسياحة، أود الاستفسار عن تفاصيل وحجوزات برامج ${title}.`;
+    }
+  };
   return (
     <section
       id="packages"
@@ -81,7 +93,7 @@ export const PackagesSection: React.FC<PackagesSectionProps> = ({ onSelectPackag
               {/* Action Button */}
               <div className="p-7 md:p-8 pt-0">
                 <button
-                  onClick={() => onSelectPackage(pkg.title)}
+                  onClick={() => onSelectPackage(pkg.title, getPackageMessage(pkg.id, pkg.title))}
                   type="button"
                   className="w-full h-12 rounded-full bg-[#F5F6F7] hover:bg-[#1261D6] text-[#0A0A0A] hover:text-white font-medium text-sm transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer border border-[#E7E7E7] hover:border-[#1261D6]"
                 >

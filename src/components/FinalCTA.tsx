@@ -1,9 +1,9 @@
 import React from 'react';
 import { ArrowLeft, MessageCircle } from 'lucide-react';
-import { AGENCY_CONFIG } from '../data/agencyData';
+import { AGENCY_CONFIG, getWhatsAppUrl } from '../data/agencyData';
 
 interface FinalCTAProps {
-  onOpenBooking: () => void;
+  onOpenBooking: (message?: string) => void;
 }
 
 export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenBooking }) => {
@@ -38,7 +38,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenBooking }) => {
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
           <button
-            onClick={onOpenBooking}
+            onClick={() => onOpenBooking('مرحبًا وكالة الصادق للسفريات والسياحة، أود البدء في ترتيبات رحلتي القادمة وتنسيق الحجز معكم.')}
             type="button"
             id="final-cta-primary-btn"
             className="w-full sm:w-auto h-[52px] md:h-[56px] px-9 rounded-full bg-[#F28A2E] hover:bg-[#e07b22] text-white font-medium text-base shadow-[0_4px_24px_rgba(242,138,46,0.35)] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
@@ -48,7 +48,7 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onOpenBooking }) => {
           </button>
 
           <a
-            href={AGENCY_CONFIG.whatsappUrl}
+            href={getWhatsAppUrl('مرحبًا وكالة الصادق للسفريات والسياحة، أود التواصل معكم للاستفسار عن حجز وترتيب رحلة جديدة.')}
             target="_blank"
             rel="noopener noreferrer"
             id="final-cta-secondary-btn"

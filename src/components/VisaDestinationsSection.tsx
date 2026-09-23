@@ -84,8 +84,16 @@ export const VisaDestinationsSection: React.FC<VisaDestinationsSectionProps> = (
             <div
               key={dest.id}
               id={`destination-card-${dest.id}`}
+              role="button"
+              tabIndex={0}
               onClick={() => onSelectDestination(dest.name)}
-              className="group relative bg-white rounded-[22px] overflow-hidden border border-[#E7E7E7] hover:border-[#1261D6]/40 transition-all duration-300 hover:shadow-[0_12px_28px_rgba(0,0,0,0.06)] cursor-pointer flex flex-col"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onSelectDestination(dest.name);
+                }
+              }}
+              className="group relative bg-white rounded-[22px] overflow-hidden border border-[#E7E7E7] hover:border-[#1261D6]/40 focus:outline-none focus:ring-2 focus:ring-[#1261D6]/50 transition-all duration-300 hover:shadow-[0_12px_28px_rgba(0,0,0,0.06)] cursor-pointer flex flex-col"
             >
               {/* Image Container with editorial zoom */}
               <div className="relative h-56 w-full overflow-hidden bg-gray-100">

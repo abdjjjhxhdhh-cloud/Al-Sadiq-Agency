@@ -38,6 +38,14 @@ export const AGENCY_CONFIG = {
   ]
 };
 
+export const getWhatsAppUrl = (message?: string): string => {
+  const cleanPhone = AGENCY_CONFIG.phoneClean;
+  if (!message) {
+    return `https://wa.me/${cleanPhone}`;
+  }
+  return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message.trim())}`;
+};
+
 export const SERVICES_LIST: ServiceItem[] = [
   {
     id: 'visas',

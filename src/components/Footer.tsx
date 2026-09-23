@@ -1,6 +1,6 @@
 import React from 'react';
 import { MapPin, MessageCircle, Instagram, Facebook, Twitter, ArrowUp, Plane } from 'lucide-react';
-import { AGENCY_CONFIG } from '../data/agencyData';
+import { AGENCY_CONFIG, getWhatsAppUrl } from '../data/agencyData';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -47,7 +47,7 @@ export const Footer: React.FC = () => {
             {/* Social Icons */}
             <div className="flex items-center gap-3">
               <a
-                href={AGENCY_CONFIG.whatsappUrl}
+                href={getWhatsAppUrl('مرحبًا وكالة الصادق للسفريات والسياحة، يسعدني التواصل معكم للاستفسار عن خدمات السفر المتوفرة.')}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="واتساب"

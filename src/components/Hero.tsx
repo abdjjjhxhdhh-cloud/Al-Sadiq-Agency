@@ -3,7 +3,7 @@ import { ArrowLeft, Compass, Plane, ShieldCheck } from 'lucide-react';
 import { AGENCY_CONFIG } from '../data/agencyData';
 
 interface HeroProps {
-  onOpenBooking: () => void;
+  onOpenBooking: (message?: string) => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
@@ -40,7 +40,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
             className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto mb-14 md:mb-18"
           >
             <button
-              onClick={onOpenBooking}
+              onClick={() => onOpenBooking('مرحبًا وكالة الصادق للسفريات والسياحة، أود بدء حجز وترتيب رحلة جديدة والاستفسار عن الخدمات المتوفرة.')}
               id="hero-primary-cta"
               type="button"
               className="w-full sm:w-auto h-[50px] md:h-[54px] px-8 md:px-9 rounded-full bg-[#F28A2E] text-white text-[15px] md:text-[16px] font-medium hover:bg-[#e07b22] active:scale-[0.98] shadow-[0_4px_18px_rgba(242,138,46,0.32)] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
